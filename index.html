@@ -46,7 +46,7 @@
             <!-- Contatti -->
             <div class="contacts">
                 <!-- Contatto singolo da iterare, modifico mettendo l'array peopleFound, che nel caso non sia-->
-                <div class="contact" v-for = "(curCon, index) in peopleFound" @click="setActive(index)">
+                <div class="contact" v-for = "(curCon, index) in contacts" @click="setActive(index)">
                     <div class="contact-logo">
                         <img :src="`./img/avatar${curCon.avatar}.jpg`" :alt="`Nome : ${curCon.name}`">
                     </div>
