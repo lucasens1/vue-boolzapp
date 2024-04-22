@@ -1,6 +1,6 @@
 ### Milestone 1 
-    - Replica grafica
-    - Inserimento dinamico contatti
+    - Replica grafica :star:
+    - Inserimento dinamico contatti :star:
 
 ### Milestone 2
     - Visualizzazione dinamica dei messaggi per ogni chat

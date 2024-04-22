@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/tablet.css" media="screen and (max-width: 991px)">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 540px)">
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Boolzapp</title>
 </head>
 <body>
-    <div id="app" class="container">
+<div id="app">
+    <div id="appe" class="container">
         <!-- contenitore sx -->
         <div class="left">
             <div class="header-left">
@@ -40,100 +43,20 @@
                 <input id="contacts-filter" class="left-searchbar-input" placeholder="Cerca o inizia una nuova chat"
                     name="search">
             </div>
+            <!-- Contatti -->
             <div class="contacts">
-                <div class="contact">
+                <!-- Contatto singolo da iterare -->
+                <div class="contact" v-for = "(curCon, index) in contacts">
                     <div class="contact-logo">
-                        <img src="img/avatar_1.jpg" alt="Avatar Michele">
+                        <img :src="`./img/avatar${curCon.avatar}.jpg`" :alt="`Nome : ${curCon.name}`">
                     </div>
                     <div class="contact-info">
                         <h3>
-                            <span class="contact-name">Michele</span>
+                            <span class="contact-name">{{ curCon.name }}</span>
                             <span class="time">16:15</span>
                         </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="contact-logo">
-                        <img src="img/avatar_2.jpg" alt="Avatar Fabio">
-                    </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">Fabio</span>
-                            <span class="time">16:05</span>
-                        </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="contact-logo">
-                        <img src="img/avatar_3.jpg" alt="Avatar Samuele">
-                    </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">Samuele</span>
-                            <span class="time">16:03</span>
-                        </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
-                    </div>
-                </div><div class="contact">
-                    <div class="contact-logo">
-                        <img src="img/avatar_4.jpg" alt="Avatar Alessandro B.">
-                    </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">Alessandro B.</span>
-                            <span class="time">15:50</span>
-                        </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="contact-logo">
-                        <img src="img/avatar_5.jpg" alt="Avatar Alessandro L.">
-                    </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">Alessandro L.</span>
-                            <span class="time">15:45</span>
-                        </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="contact-logo">
-                        <img src="img/avatar_6.jpg" alt="Avatar Claudia">
-                    </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">Claudia</span>
-                            <span class="time">15:40</span>
-                        </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="contact-logo">
-                        <img src="img/avatar_7.jpg" alt="Avatar Federico">
-                    </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">Federico</span>
-                            <span class="time">15:22</span>
-                        </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="contact-logo">
-                        <img src="img/avatar_8.jpg" alt="Avatar Davide">
-                    </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">Davide</span>
-                            <span class="time">15:15</span>
-                        </h3>
-                        <small>Lorem ipsum dolor sit amet</small>
+                        <!-- Stampo l'ultimo messaggio -->
+                        <small>{{ curCon.messages[curCon.messages.length-1].message }}</small>
                     </div>
                 </div>
             </div>
@@ -202,6 +125,7 @@
         </div>
         <!-- /contenitore dx -->
     </div>
+</div>
     <script src="./js/data.js"></script>
 </body>
 </html>
