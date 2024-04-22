@@ -5,6 +5,8 @@ createApp({
         return {
             saluta : "ciao",
             activeContact : 0,
+            newMessage : "",
+            defaultMsg : "ok",
             contacts: [
                 {
                     name: 'Michele',
@@ -171,9 +173,25 @@ createApp({
         }
     },
     methods : {
+        //Funzione che setta l'indice attiva su quello clickato dalla chat
         setActive(index){
             this.activeContact = index;
             console.log(this.activeContact)
-        }
+        },
+        addMessage(){
+            /*
+            Entro nell'array di oggetti contacts, utilizzando l'indice attivo, nei messaggi pusho il nuovo messaggio, dove passo come oggetto l'orario, il messaggio e lo status.
+            Stessa cosa faccio per la risposta ma settando un timeout di 1s e con status inverso
+            */
+            this.contacts[this.activeContact].messages.push({date : new Date().toLocaleString() ,
+                                                             message : this.newMessage,
+                                                             status : 'sent' });
+            setTimeout(()=> {
+                console.log("Funziona")
+                this.contacts[this.activeContact].messages.push({date : new Date().toLocaleString(),
+                                                                 message : this.defaultMsg,
+                                                                 status : 'received'});
+            },1000)
+        },
     }
 }).mount('#app');

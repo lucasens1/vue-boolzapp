@@ -81,12 +81,17 @@
                     <i class="fas fa-ellipsis-v"></i>
                 </div>
             </div>
+            <!-- Messaggi contenitore -->
             <div class="right-messages-container">
+                <!-- Messaggi -->
                 <div class="right-messages">
-                    <div class="message sent">
+                    <!-- Inserisco in modo dinamico i messaggi e a seconda del loro status gli applico classe sent || received -->
+                    <div v-for="(curMsg, msgIndex) in contacts[activeContact].messages"
+                         class="message" 
+                         :class="{'sent' : curMsg.status === 'sent', 'received' : curMsg.status !== 'sent' }">
                         <div class="message-inner">
                             <span class="message-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat eos blanditiis architecto expedita aspernatur quasi, et nobis aut officiis soluta voluptates nesciunt voluptate ipsa fuga rerum doloribus, unde laboriosam doloremque?
+                                {{curMsg.message}}
                             </span>
                             <div class="message-options">
                                 <i class="fa fa-chevron-down"></i>
@@ -96,36 +101,24 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="message-time">16:13</span>
-                    </div>
-                    <div class="message received">
-                        <div class="message-inner">
-                            <span class="message-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat eos blanditiis architecto expedita
-                                aspernatur quasi, et nobis aut officiis soluta voluptates nesciunt voluptate ipsa fuga rerum doloribus, unde
-                                laboriosam doloremque?
-                            </span>
-                            <div class="message-options">
-                                <i class="fa fa-chevron-down"></i>
-                                <div class="message-options-panel">
-                                    <div class="message-info">Info messaggio</div>
-                                    <div class="message-destroy">Cancella messaggio</div>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="message-time">16:15</span>
+                        <span class="message-time">{{curMsg.date}}</span>
                     </div>
                 </div>
+                <!-- /Messaggi -->
             </div>
+            <!-- Footer con input per messaggio -->
             <div class="right-footer">
                 <div class="right-footer-icon">
                     <i class="far fa-smile"></i>
                 </div>
-                <input class="new-message-inputs" placeholder="Scrivi un messaggio">
+                <!-- Input -->
+                <input class="new-message-inputs" placeholder="Scrivi un messaggio" v-model="newMessage" @keyup.enter="addMessage()">
+                <!-- /Input -->
                 <div class="right-footer-icon">
                     <i class="fa fa-microphone" aria-hidden="true"></i>
                 </div>
             </div>
+            <!-- /Footer -->
         </div>
         <!-- /contenitore dx -->
     </div>
