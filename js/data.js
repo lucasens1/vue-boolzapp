@@ -5,8 +5,10 @@ createApp({
         return {
             saluta : "ciao",
             activeContact : 0,
+            msgActive : 0,
             newMessage : "",
             defaultMsg : "ok",
+            searchingItem : "",
             contacts: [
                 {
                     name: 'Michele',
@@ -169,7 +171,8 @@ createApp({
                         }
                     ],
                 }
-            ],   
+            ], 
+            peopleFound : [], 
         }
     },
     methods : {
@@ -193,5 +196,24 @@ createApp({
                                                                  status : 'received'});
             },1000)
         },
+        searchPeople() {
+            // Filtra i contatti solo se c'è qualcosa nella search bar
+            if (this.searchingItem.trim() !== '') {
+                this.peopleFound = this.contacts.map(contact => ({...contact}));
+                console.log("questo è lo stato dell'array peopleFound : " + this.peopleFound)
+                //peopleFound aggiornato
+                this.peopleFound = this.contacts.filter(searchedName => {
+                    //restituisce il nomeRicerca -> chiave : name in minuscolo che include -> l'item con quelle lettere in minuscolo
+                    return searchedName.name.toLowerCase().includes(this.searchingItem.toLowerCase());
+                });
+            } else {
+                return this.contacts;
+            }
+        },
+        removeMessage(i){
+            this.msgActive = i;
+            console.log(this.msgActive);
+            this.contacts[this.activeContact].messages[this.msgActive].splice(this.msgActive, 1)
+        }
     }
 }).mount('#app');
