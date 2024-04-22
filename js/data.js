@@ -4,6 +4,7 @@ createApp({
     data(){
         return {
             saluta : "ciao",
+            activeContact : 0,
             contacts: [
                 {
                     name: 'Michele',
@@ -170,6 +171,9 @@ createApp({
         }
     },
     methods : {
-
+        setActive(index){
+            this.activeContact = index;
+            console.log(this.activeContact)
+        }
     }
 }).mount('#app');
