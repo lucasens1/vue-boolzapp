@@ -1,6 +1,6 @@
 ### Milestone 1 
-    - a Replica grafica :star:
-    - b Inserimento dinamico contatti :star:
+    - a Replica grafica 🔥
+    - b Inserimento dinamico contatti 🔥
 
 ### Milestone 2
     - a Visualizzazione dinamica dei messaggi per ogni chat
@@ -15,4 +15,4 @@
 
 ### Milestone 5
     - a Cancella messaggio
-    - b Aggiorna ora ultimo messaggio in chat lista contatti
+    - b Aggiorna ora ultimo messaggio in chat lista contatti 🔥
