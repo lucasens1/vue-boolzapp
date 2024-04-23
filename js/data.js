@@ -183,6 +183,13 @@ createApp({
         this.peopleFound = this.contacts.filter(contact => contact.visible)
     },
     methods : {
+        getTime(curCon){
+            let time = curCon.messages[curCon.messages.length-1].date;
+            //Splitto in due l'array con lo spazio che mi separa la data dall'ora
+            const timeFixed = time.split(" ");
+            /*console.log(timeFixed[1]);*/
+            return timeFixed[1];
+        },
         //Funzione che setta l'indice attiva su quello clickato dalla chat
         setActive(index){
             this.activeContact = index;

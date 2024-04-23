@@ -58,7 +58,10 @@
                             <span class="time">{{ curCon.messages.date }}</span>
                         </h3>
                         <!-- Stampo l'ultimo messaggio -->
-                        <small>{{ curCon.messages[curCon.messages.length-1].message }}</small>
+                        <small>
+                            {{ curCon.messages[curCon.messages.length-1].message }}
+                            {{ getTime (curCon )}}
+                        </small>
                     </div>
                 </div>
             </div>
