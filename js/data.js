@@ -10,8 +10,17 @@ createApp({
             activeContact : 0,
             msgActive : 0,
             newMessage : "",
-            defaultMsg : "ok",
+            //Array di frasi random
+            defaultMsg : ["dai",
+                          "tutto bene", 
+                          "come al solito", 
+                          "mai nella vita", 
+                          "non esiste",
+                          "impossibile",
+                        ],
             searchingItem : "",
+            iconMic : false,
+            styleInput : "",
             contacts: [
                 {
                     name: 'Michele',
@@ -196,7 +205,11 @@ createApp({
             console.log(this.activeContact)
         },
         addMessage(){
-            /*
+            //Inizializzo un indice dinamico e random
+            let i = Math.floor(Math.random() * 6); // 0 ... 5
+            //Controllo che il messaggio non sia vuoto o spazio
+            if(this.newMessage.trim() !== ''){
+                /*
             Entro nell'array di oggetti peopleFound, utilizzando l'indice attivo, nei messaggi pusho il nuovo messaggio, dove passo come oggetto l'orario, il messaggio e lo status.
             Stessa cosa faccio per la risposta ma settando un timeout di 1s e con status received
             */
@@ -214,10 +227,11 @@ createApp({
                 //Pusho la risposta
                 this.peopleFound[this.activeContact].messages.push({
                     date : now.toLocaleString(luxon.DateTime.DATETIME_SHORT_WITH_SECONDS),
-                    message : this.defaultMsg,
+                    message : this.defaultMsg[i],
                     status : 'received',
                 });
             },1000);
+            }
         },
         searchPeople() {
             // Filtra i contatti solo se c'è qualcosa nella search bar, quindi se non è ' ', togliendo spazi avanti e dietro
@@ -238,6 +252,12 @@ createApp({
             this.msgActive = i;
             console.log(this.msgActive);
             this.peopleFound[this.activeContact].messages.splice(this.msgActive, 1)
-        }
+        },
+        changeIcon(){
+            this.iconMic = !this.iconMic
+            if(this.iconMic){
+                return this.styleInput = "cursor: pointer;"
+            }
+        },
     }
 }).mount('#app');

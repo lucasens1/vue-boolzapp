@@ -77,7 +77,9 @@
                     <!-- Nome del contatto selezionato -->
                     <h3><span id="header-right-contact-name">{{peopleFound[activeContact].name}}</span> <br>
                         <!-- Restituisce ultima data di invio del messaggio -->
-                        <small class="time">{{peopleFound[activeContact].messages[peopleFound[activeContact].messages.length - 1].date}}</small>
+                        <small class="time">
+                            {{ peopleFound[activeContact].messages[peopleFound[activeContact].messages.length - 1].date}}
+                        </small>
                     </h3>
                 </div>
                 <div class="header-right-icons">
@@ -118,10 +120,18 @@
                     <i class="far fa-smile"></i>
                 </div>
                 <!-- Input -->
-                <input class="new-message-inputs" placeholder="Scrivi un messaggio" v-model="newMessage" @keyup.enter="addMessage()">
+                <!-- Rendo interattiva l'input, quando è in focus cambia l'icona -->
+                <input 
+                    class="new-message-inputs" 
+                    placeholder="Scrivi un messaggio" 
+                    v-model="newMessage" 
+                    @keyup.enter="addMessage()" 
+                    @focus="changeIcon()" 
+                    @blur ="changeIcon()">
                 <!-- /Input -->
+                <!-- Aggiungo il click all'icona del mic o check, e il cursor:pointer quando iconMic è true, quindi è check -->
                 <div class="right-footer-icon">
-                    <i class="fa fa-microphone" aria-hidden="true"></i>
+                    <i :class="`fa fa-${ iconMic ? 'check' : 'microphone' }`" aria-hidden="true" @click="addMessage()" :style="styleInput"></i>
                 </div>
             </div>
             <!-- /Footer -->
