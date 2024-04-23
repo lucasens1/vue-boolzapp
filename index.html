@@ -40,20 +40,22 @@
                 <label class="search-label" for="search">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </label>
+                <!-- SearchBar -->
                 <input id="contacts-filter" class="left-searchbar-input" placeholder="Cerca o inizia una nuova chat"
                     name="search" @input ="searchPeople" v-model = "searchingItem">
+                <!-- /SearchBar -->
             </div>
             <!-- Contatti -->
             <div class="contacts">
                 <!-- Contatto singolo da iterare, modifico mettendo l'array peopleFound, che nel caso non sia-->
-                <div class="contact" v-for = "(curCon, index) in contacts" @click="setActive(index)">
+                <div class="contact" v-for = "(curCon, index) in peopleFound" @click="setActive(index)">
                     <div class="contact-logo">
                         <img :src="`./img/avatar${curCon.avatar}.jpg`" :alt="`Nome : ${curCon.name}`">
                     </div>
                     <div class="contact-info">
                         <h3>
                             <span class="contact-name">{{ curCon.name }}</span>
-                            <span class="time">16:15</span>
+                            <span class="time">{{ curCon.messages.date }}</span>
                         </h3>
                         <!-- Stampo l'ultimo messaggio -->
                         <small>{{ curCon.messages[curCon.messages.length-1].message }}</small>
@@ -68,11 +70,11 @@
             <div class="header-right">
                 <div class="header-right-logo">
                     <!-- Immagine del contatto selezionato -->
-                    <img :src="`img/avatar${contacts[activeContact].avatar}.jpg`" alt="">
+                    <img :src="`img/avatar${peopleFound[activeContact].avatar}.jpg`" alt="">
                     <!-- Nome del contatto selezionato -->
-                    <h3><span id="header-right-contact-name">{{contacts[activeContact].name}}</span> <br>
+                    <h3><span id="header-right-contact-name">{{peopleFound[activeContact].name}}</span> <br>
                         <!-- Restituisce ultima data di invio del messaggio -->
-                        <small class="time">{{contacts[activeContact].messages[contacts[activeContact].messages.length - 1].date}}</small>
+                        <small class="time">{{peopleFound[activeContact].messages[peopleFound[activeContact].messages.length - 1].date}}</small>
                     </h3>
                 </div>
                 <div class="header-right-icons">
@@ -86,7 +88,7 @@
                 <!-- Messaggi -->
                 <div class="right-messages">
                     <!-- Inserisco in modo dinamico i messaggi e a seconda del loro status gli applico classe sent || received -->
-                    <div v-for="(curMsg, msgIndex) in contacts[activeContact].messages"
+                    <div v-for="(curMsg, msgIndex) in peopleFound[activeContact].messages"
                          class="message" 
                          :class="{'sent' : curMsg.status === 'sent', 'received' : curMsg.status !== 'sent' }">
                         <div class="message-inner">
@@ -124,6 +126,11 @@
         <!-- /contenitore dx -->
     </div>
 </div>
+    <!-- Luxon -->
+    <script src="
+https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js
+"></script>
+    <!-- Mio Script  -->
     <script src="./js/data.js"></script>
 </body>
 </html>

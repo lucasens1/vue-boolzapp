@@ -1,5 +1,8 @@
 const { createApp } = Vue;
 
+const now = luxon.DateTime.now();
+console.log(now.toLocaleString(luxon.DateTime.DATETIME_SHORT_WITH_SECONDS))
+
 createApp({
     data(){
         return {
@@ -172,8 +175,12 @@ createApp({
                     ],
                 }
             ], 
-            peopleFound : [], 
+            peopleFound : [],
         }
+    },
+    created(){
+        //Inizializzo peopleFound, in data altrimenti mi da Error
+        this.peopleFound = this.contacts.filter(contact => contact.visible)
     },
     methods : {
         //Funzione che setta l'indice attiva su quello clickato dalla chat
@@ -183,37 +190,47 @@ createApp({
         },
         addMessage(){
             /*
-            Entro nell'array di oggetti contacts, utilizzando l'indice attivo, nei messaggi pusho il nuovo messaggio, dove passo come oggetto l'orario, il messaggio e lo status.
-            Stessa cosa faccio per la risposta ma settando un timeout di 1s e con status inverso
+            Entro nell'array di oggetti peopleFound, utilizzando l'indice attivo, nei messaggi pusho il nuovo messaggio, dove passo come oggetto l'orario, il messaggio e lo status.
+            Stessa cosa faccio per la risposta ma settando un timeout di 1s e con status received
             */
-            this.contacts[this.activeContact].messages.push({date : new Date().toLocaleString() ,
-                                                             message : this.newMessage,
-                                                             status : 'sent' });
+            this.peopleFound[this.activeContact].messages.push({
+                //Implemento la data e ora odierna con Luxon
+                date : now.toLocaleString(luxon.DateTime.DATETIME_SHORT_WITH_SECONDS) ,
+                message : this.newMessage,
+                status : 'sent', 
+            });
+            //Rilibero il campo
+            this.newMessage = "";
+            //Dopo un secondo
             setTimeout(()=> {
-                console.log("Funziona")
-                this.contacts[this.activeContact].messages.push({date : new Date().toLocaleString(),
-                                                                 message : this.defaultMsg,
-                                                                 status : 'received'});
-            },1000)
+                console.log("Funziona");
+                //Pusho la risposta
+                this.peopleFound[this.activeContact].messages.push({
+                    date : now.toLocaleString(luxon.DateTime.DATETIME_SHORT_WITH_SECONDS),
+                    message : this.defaultMsg,
+                    status : 'received',
+                });
+            },1000);
         },
         searchPeople() {
-            // Filtra i contatti solo se c'è qualcosa nella search bar
+            // Filtra i contatti solo se c'è qualcosa nella search bar, quindi se non è ' ', togliendo spazi avanti e dietro
             if (this.searchingItem.trim() !== '') {
-                this.peopleFound = this.contacts.map(contact => ({...contact}));
-                console.log("questo è lo stato dell'array peopleFound : " + this.peopleFound)
-                //peopleFound aggiornato
-                this.peopleFound = this.contacts.filter(searchedName => {
+                //Itero a questo punto sull'array copiato
+                this.peopleFound = this.peopleFound.filter(searchedName => {
                     //restituisce il nomeRicerca -> chiave : name in minuscolo che include -> l'item con quelle lettere in minuscolo
+                    console.log(searchedName)
                     return searchedName.name.toLowerCase().includes(this.searchingItem.toLowerCase());
                 });
-            } else {
-                return this.contacts;
+
+            }  else {
+                //Se vuota allora 
+                this.peopleFound = this.contacts.filter(contact => contact.visible === true);
             }
         },
         removeMessage(i){
             this.msgActive = i;
             console.log(this.msgActive);
-            this.contacts[this.activeContact].messages.splice(this.msgActive, 1)
+            this.peopleFound[this.activeContact].messages.splice(this.msgActive, 1)
         }
     }
 }).mount('#app');
