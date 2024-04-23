@@ -213,7 +213,7 @@ createApp({
         removeMessage(i){
             this.msgActive = i;
             console.log(this.msgActive);
-            this.contacts[this.activeContact].messages[this.msgActive].splice(this.msgActive, 1)
+            this.contacts[this.activeContact].messages.splice(this.msgActive, 1)
         }
     }
 }).mount('#app');
